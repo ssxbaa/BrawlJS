@@ -25,6 +25,10 @@ Don't remove the credits in the code because they support me by making more peop
 
 ![image](https://github.com/ssxbaa/BrawlJS/assets/145496446/b9bde1ae-8da9-4be4-91d3-a51ecc706206)
 
+# ⭐ • Star
+
+Star the repo to keep my work going!
+
 # 💲 • Donations
 
 If you feel generous and you wanna buy me a coffee, you can donate to these wallets:
