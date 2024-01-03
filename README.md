@@ -35,7 +35,7 @@ If you feel generous and you wanna buy me a coffee, you can donate to these wall
 
 BTC: bc1qxr7kjvypndqyqu0f6x5vwyt9mg0sw05dn7szuv
 
-LTC: 0x506C927169E302e34f20feBD86c474c35d9115Ed
+LTC: LUZ8i9ZGRrGXnJusEfN3uHKcLrrwA2mctR
 
 SOL: 3cRUiT9UF2tS53wAnCFq3kRQSCvVExabyBuDfnNGGa8p
 
