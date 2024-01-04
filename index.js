@@ -4,14 +4,15 @@
 const { Telegraf } = require('telegraf');
 const dotenv = require('dotenv').config();
 const bot = new Telegraf(process.env.token)
-const BrawlStarsAPI = require("brawlstars-api-nodejs").API;
+const BrawlStarsAPI = require('brawlstars-api-nodejs').API;
+const { sanitizeMarkdown } = require('telegram-markdown-sanitizer');
 
 // Other Variables
 // DO NOT TOUCH IF YOU DON'T KNOW WHAT YOU'RE DOING
 
 const name = process.env.name
 const api = new BrawlStarsAPI(process.env.key);
-const version = "0\\.1 Alpha"
+const version = "0\\.2 Alpha"
 
 // Defining Commands
 // DO NOT TOUCH IF YOU DON'T KNOW WHAT YOU'RE DOING
@@ -99,17 +100,19 @@ bot.command("club", (ctx) => {
         try {
             const club = await api.club(tag)
             async function sendInfos() {
+                const desc = sanitizeMarkdown(club.description)
                 ctx.replyWithMarkdownV2(`⚜️ • *Stats for ${club.name}*\n\n` +
                                         `🏆 • *Club Trophies:* ${club.trophies}\n` +
-                                        `❗️ • *Required Trophies:* ${club.requiredTrophies}` +
-                                        `\\#️⃣ • *Tag:* \\${club.tag}\n\n` +
+                                        `❗️ • *Required Trophies:* ${club.requiredTrophies}\n` +
+                                        `\\#️⃣ • *Tag:* \\${club.tag}\n` +
+                                        `📜 • *Description:* ${desc}\n\n` +
                                         `🏃‍♂️ • *Powered by [ssxbaa](https://github\\.com/ssxbaa)*`,
                                         {disable_web_page_preview: true}
                 )
             }
             sendInfos()
         } catch(err) {
-            ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\.`)
+            ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\. ` + err)
         }
     }
     searchClub()
