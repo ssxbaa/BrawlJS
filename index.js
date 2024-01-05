@@ -12,7 +12,7 @@ const { sanitizeMarkdown } = require('telegram-markdown-sanitizer');
 
 const name = process.env.name
 const api = new BrawlStarsAPI(process.env.key);
-const version = "0\\.2 Alpha"
+const version = "0\\.3 Alpha"
 
 // Defining Commands
 // DO NOT TOUCH IF YOU DON'T KNOW WHAT YOU'RE DOING
@@ -55,11 +55,11 @@ bot.command("stats", (ctx) => {
                 const player = await api.player(tag);
                 async function sendInfos() {
                     const totalwins = player['3vs3Victories'] + player.soloVictories + player.duoVictories;
-                    if (player.club.name != null) {
+                    const clubname = player.club.name || "No Club";
                         ctx.replyWithMarkdownV2(`⚜️ • *Stats for ${player.name}*\n\n` + 
                                             `🏆 • *Trophies:* ${player.trophies}\n` +
                                             `🔝 • *Highest Trophies:* ${player.highestTrophies}\n` +
-                                            `🛡 • *Club:* ${player.club.name}\n` +
+                                            `🛡 • *Club:* ${clubname}\n` +
                                             `\\#️⃣ • *Tag:* \\${player.tag}\n` +
                                             `💠 • *Experience Level:* ${player.expLevel}\n` +
                                             `👑 • *Battles Won:* ${totalwins}\n` +
@@ -69,25 +69,11 @@ bot.command("stats", (ctx) => {
                                             `🏃‍♂️ • *Powered by [ssxbaa](https://github\\.com/ssxbaa)*`,
                                             {disable_web_page_preview: true}
                         )
-                    } else {
-                        ctx.replyWithMarkdownV2(`⚜️ • *Stats for ${player.name}*\n\n` + 
-                                            `🏆 • *Trophies:* ${player.trophies}\n` +
-                                            `🔝 • *Highest Trophies:* ${player.highestTrophies}\n` +
-                                            `🛡 • *Club:* No Club\n` +
-                                            `\\#️⃣ • *Tag:* \\${player.tag}\n` +
-                                            `💠 • *Experience Level:* ${player.expLevel}\n` +
-                                            `👑 • *Battles Won:* ${totalwins}\n` +
-                                            `⚔️ • *3v3 Victories:* ${player['3vs3Victories']}\n` +
-                                            `👤 • *Solo Victories:* ${player.soloVictories}\n` +
-                                            `👥 • *Duo Victories:* ${player.duoVictories}\n\n` +
-                                            `🏃‍♂️ • *Powered by [ssxbaa](https://github\\.com/ssxbaa)*`,
-                                            {disable_web_page_preview: true}
-                        )
-                    }
                 }
                 sendInfos()
             } catch(err) { 
                 ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\.`)
+                console.log(err)
             }
         }
         searchPlayer();
@@ -112,7 +98,8 @@ bot.command("club", (ctx) => {
             }
             sendInfos()
         } catch(err) {
-            ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\. ` + err)
+            ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\.`)
+            console.log(err)
         }
     }
     searchClub()
