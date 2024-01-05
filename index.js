@@ -47,45 +47,38 @@ bot.command("start", (ctx) =>
                                         {disable_web_page_preview: true}
 ));
 
-bot.command("stats", (ctx) => {
+bot.command("stats", async (ctx) => {
         data = ctx.message.text.split(" ");
         tag = data[1];
-        async function searchPlayer() {
             try {
                 const player = await api.player(tag);
-                async function sendInfos() {
-                    const totalwins = player['3vs3Victories'] + player.soloVictories + player.duoVictories;
-                    const clubname = player.club.name || "No Club";
-                        ctx.replyWithMarkdownV2(`⚜️ • *Stats for ${player.name}*\n\n` + 
-                                            `🏆 • *Trophies:* ${player.trophies}\n` +
-                                            `🔝 • *Highest Trophies:* ${player.highestTrophies}\n` +
-                                            `🛡 • *Club:* ${clubname}\n` +
-                                            `\\#️⃣ • *Tag:* \\${player.tag}\n` +
-                                            `💠 • *Experience Level:* ${player.expLevel}\n` +
-                                            `👑 • *Battles Won:* ${totalwins}\n` +
-                                            `⚔️ • *3v3 Victories:* ${player['3vs3Victories']}\n` +
-                                            `👤 • *Solo Victories:* ${player.soloVictories}\n` +
-                                            `👥 • *Duo Victories:* ${player.duoVictories}\n\n` +
-                                            `🏃‍♂️ • *Powered by [ssxbaa](https://github\\.com/ssxbaa)*`,
-                                            {disable_web_page_preview: true}
-                        )
-                }
-                sendInfos()
+                const totalwins = player['3vs3Victories'] + player.soloVictories + player.duoVictories;
+                const clubname = player.club.name || "No Club";
+                ctx.replyWithMarkdownV2(`⚜️ • *Stats for ${player.name}*\n\n` + 
+                                        `🏆 • *Trophies:* ${player.trophies}\n` +
+                                        `🔝 • *Highest Trophies:* ${player.highestTrophies}\n` +
+                                        `🛡 • *Club:* ${clubname}\n` +
+                                        `\\#️⃣ • *Tag:* \\${player.tag}\n` +
+                                        `💠 • *Experience Level:* ${player.expLevel}\n` +
+                                        `👑 • *Battles Won:* ${totalwins}\n` +
+                                        `⚔️ • *3v3 Victories:* ${player['3vs3Victories']}\n` +
+                                        `👤 • *Solo Victories:* ${player.soloVictories}\n` +
+                                        `👥 • *Duo Victories:* ${player.duoVictories}\n\n` +
+                                        `🏃‍♂️ • *Powered by [ssxbaa](https://github\\.com/ssxbaa)*`,
+                                        {disable_web_page_preview: true}
+                )
             } catch(err) { 
                 ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\.`)
                 console.log(err)
             }
         }
-        searchPlayer();
-});
+);
 
-bot.command("club", (ctx) => {
-    data = ctx.message.text.split(" ");
-    tag = data[1]
-    async function searchClub() {
-        try {
-            const club = await api.club(tag)
-            async function sendInfos() {
+bot.command("club", async (ctx) => {
+        data = ctx.message.text.split(" ");
+        tag = data[1]
+            try {
+                const club = await api.club(tag)
                 const desc = sanitizeMarkdown(club.description)
                 ctx.replyWithMarkdownV2(`⚜️ • *Stats for ${club.name}*\n\n` +
                                         `🏆 • *Club Trophies:* ${club.trophies}\n` +
@@ -95,15 +88,12 @@ bot.command("club", (ctx) => {
                                         `🏃‍♂️ • *Powered by [ssxbaa](https://github\\.com/ssxbaa)*`,
                                         {disable_web_page_preview: true}
                 )
+            } catch(err) {
+                ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\.`)
+                console.log(err)
             }
-            sendInfos()
-        } catch(err) {
-            ctx.replyWithMarkdownV2(`⚠️ • *The tag might be invalid*\\. *Try again*\\.`)
-            console.log(err)
-        }
     }
-    searchClub()
-});
+);
 
 bot.command("info", (ctx) => 
                 ctx.replyWithMarkdownV2(`👋 • *Hi*\\!\n` +
