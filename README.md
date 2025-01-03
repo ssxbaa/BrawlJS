@@ -28,15 +28,3 @@ Don't remove the credits in the code because they support me by making more peop
 # ⭐ • Star
 
 Star the repo to keep my work going!
-
-# 💲 • Donations
-
-If you feel generous and you wanna buy me a coffee, you can donate to these wallets:
-
-BTC: bc1qxr7kjvypndqyqu0f6x5vwyt9mg0sw05dn7szuv
-
-LTC: LUZ8i9ZGRrGXnJusEfN3uHKcLrrwA2mctR
-
-SOL: 3cRUiT9UF2tS53wAnCFq3kRQSCvVExabyBuDfnNGGa8p
-
-DOGE: D7cJZP9rE2yBugDUBT7SqR2teGc2FC4hN2
